@@ -52,11 +52,11 @@ namespace Lordag1.Controllers
         public IActionResult Login([FromBody]User user)
         {
           var userEmail = _cWheelsDbContext.Users.FirstOrDefault(u => u.Email == user.Email);
-            if (userEmail==null)
+            if (userEmail == null)
             {
                 return NotFound();
             }
-            if (SecurePasswordHasherHelper.Verify(user.Password, userEmail.Password))
+            if (!SecurePasswordHasherHelper.Verify(user.Password, userEmail.Password))
             {
                 return Unauthorized();
             }
