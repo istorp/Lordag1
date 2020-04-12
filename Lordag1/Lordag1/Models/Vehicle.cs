@@ -9,15 +9,23 @@ namespace Lordag1.Models
     public class Vehicle
     {
         public int Id { get; set; }
-
-        [Required(ErrorMessage ="The title shound not be missing")]
         public string Title { get; set; }
-
-        [Required(ErrorMessage = "The title shound not be missing")]
+        public string Description { get; set; }
         public double Price { get; set; }
-
-        [Required(ErrorMessage = "The title shound not be missing")]
+        public string Model { get; set; }
+        public string Engine { get; set; }
         public string Color { get; set; }
+        public string Company { get; set; }
+        public DateTime DatePosted { get; set; }
+        public bool IsHotAndNew { get; set; }
+        public bool IsFeatured { get; set; }
+        public string Location { get; set; }
+        public string Condition { get; set; }
+        public int UserId { get; set; }
+        public int CategoryId { get; set; }
+        public ICollection<Image> Images { get; set; }
+
+
 
     }
 }
