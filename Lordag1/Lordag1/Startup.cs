@@ -28,6 +28,7 @@ namespace Lordag1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMvc().AddXmlSerializerFormatters();
             services.AddDbContext<CWheelsDbContext>(option => option.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Lordag1;"));
         }
 
@@ -43,7 +44,7 @@ namespace Lordag1
 
             app.UseRouting();
 
-            cWheelsDbContext.Database.EnsureCreated();
+            //cWheelsDbContext.Database.EnsureCreated();//Om data basen inte skall ändras
 
             app.UseAuthorization();
 

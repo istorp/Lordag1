@@ -20,41 +20,67 @@ namespace Lordag1.Controllers
         }
         // GET: api/Vehicles
         [HttpGet]
-        public IEnumerable<Vehicle> Get()
+        public IActionResult Get()   // IEnumerable<Vehicle>
         {
-            return _cWheelsDbContext.Vehicles;
+            //return _cWheelsDbContext.Vehicles;
+            return Ok(_cWheelsDbContext.Vehicles);
         }
 
         // GET: api/Vehicles/5
         [HttpGet("{id}", Name = "Get")]
-        public Vehicle Get(int id)
+        public IActionResult  Get(int id)
         {
            var vehicle = _cWheelsDbContext.Vehicles.Find(id);
-            return vehicle;
+            if (vehicle==null)
+            {
+                return NotFound("Dident find it");
+            }
+            return Ok(vehicle);
         }
 
         // POST: api/Vehicles
         [HttpPost]
-        public void Post([FromBody] Vehicle vehicle)
+        public IActionResult Post([FromBody] Vehicle vehicle)
         {
             _cWheelsDbContext.Vehicles.Add(vehicle);
             _cWheelsDbContext.SaveChanges();
+            return StatusCode(StatusCodes.Status201Created);
         }
 
         // PUT: api/Vehicles/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Vehicle vehicle)
+        public IActionResult Put(int id, [FromBody] Vehicle vehicle)
         {
             var entity = _cWheelsDbContext.Vehicles.Find(id);
-            entity.Title = vehicle.Title;
-            entity.Price = vehicle.Price;
-            _cWheelsDbContext.SaveChanges();
+            if (entity==null)
+            {
+                return NotFound("no reckord was found vid that id");
+            }
+            else
+            {
+                entity.Title = vehicle.Title;
+                entity.Price = vehicle.Price;
+                entity.Color = vehicle.Color;
+                _cWheelsDbContext.SaveChanges();
+                return Ok("Reckord was Updated Nicely");
+            }
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+           var vehicle = _cWheelsDbContext.Vehicles.Find(id);
+            if (vehicle==null)
+            {
+                return NotFound("no good record try again!");
+            }
+            else
+            {
+            _cWheelsDbContext.Vehicles.Remove(vehicle);
+            _cWheelsDbContext.SaveChanges();
+            return Ok("Post was deleted nicely");
+            }
         }
     }
 }
