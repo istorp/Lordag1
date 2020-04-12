@@ -37,6 +37,12 @@ namespace Lordag1.Controllers
             }
             return Ok(vehicle);
         }
+        //GET : api/ vehicles/Test/5
+        [HttpGet("[action]/{id}")]
+        public int Test(int Id)
+        {
+            return Id;
+        }
 
         // POST: api/Vehicles
         [HttpPost]
